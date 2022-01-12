@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=noVNC
+Comment=
+Exec=novnctoggle
+Icon=user-busy
+Path=
+Terminal=false
+StartupNotify=false

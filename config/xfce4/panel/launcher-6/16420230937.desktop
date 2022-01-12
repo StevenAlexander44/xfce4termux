@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Audio
+Comment=
+Exec=audiotoggle
+Icon=audio-volume-muted
+Path=
+Terminal=false
+StartupNotify=false
