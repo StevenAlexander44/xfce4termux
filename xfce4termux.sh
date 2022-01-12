@@ -42,3 +42,8 @@ chmod u+x $PATH/audiotoggle
 
 # motd
 echo -e 'Desktop Commands:\n * desktop - xfce4 vnc session\n * novnc - access vnc in a browser\n * audio - pulseaudio for alpine\n * chromium - chromium in alpine\n' >> ~/../usr/etc/motd
+
+# config
+git clone https://github.com/StevenAlexander44/xfce4termux
+mv xfce4termux/config ~/.config
+rm -rf xfce4termux
