@@ -1,5 +1,5 @@
 favorites=xfce4-web-browser.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
-recent=xfce-session-settings.desktop
+recent=xfce4-taskmanager.desktop,xfce-ui-settings.desktop,xfce-display-settings.desktop,xfce-session-settings.desktop
 button-icon=org.xfce.panel.whiskermenu
 button-single-row=false
 show-button-title=false
