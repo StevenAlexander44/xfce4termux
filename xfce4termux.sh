@@ -7,11 +7,11 @@ mkdir .vnc
 echo -e '#!/data/data/com.termux/files/usr/bin/sh\nxfce4-session &\nxhost + &' > .vnc/xstartup
 chmod u+x .vnc/xstartup
 
-echo -e 'vncserver :0 -listen tcp' > $PATH/desktop
+echo -e 'rm -rf $TMPDIR/.X*\nvncserver :0 -listen tcp -geometry 1280x720' > $PATH/desktop
 chmod u+x $PATH/desktop
 echo -e 'vncserver -kill :0' > $PATH/desktopstop
 chmod u+x $PATH/desktopstop
-echo -e 'desktop=$(pgrep xfce4-session | wc -l)\nif [ $desktop = 0 ]\nthen\n desktop\nelse\n desktopstop\nfi' > $PATH/desktoptoggle
+echo -e 'if [ $(Xvnc -c) = 0 ]\nthen\n desktop\nelse\n desktopstop\nfi' > $PATH/desktoptoggle
 chmod u+x $PATH/desktoptoggle
 
 # noVNC
@@ -19,12 +19,12 @@ git clone https://github.com/novnc/noVNC .novnc
 
 echo -e 'sed -i "s/busy/available/g" `grep -lr "novnctoggle" .config/xfce4/panel`\n~/.novnc/utils/novnc_proxy' > $PATH/novnc
 chmod u+x $PATH/novnc
-echo -e 'pkill python3\nsed -i "s/available/busy/g" `grep -lr "novnctoggle" .config/xfce4/panel`' > $PATH/novncstop
+echo -e 'pkill -f novnc_proxy\nsed -i "s/available/busy/g" `grep -lr "novnctoggle" .config/xfce4/panel`' > $PATH/novncstop
 chmod u+x $PATH/novncstop
-echo -e 'novnc=$(pgrep python3 | wc -l)\nif [ $novnc = 0 ]\nthen\n novnc\nelse\n novncstop\nfi' > $PATH/novnctoggle
+echo -e 'if [ $(pgrep -f novnc_proxy -c) = 0 ]\nthen\n novnc\nelse\n novncstop\nfi' > $PATH/novnctoggle
 chmod u+x $PATH/novnctoggle
 
-# alpine chromium
+# alpine and chromium
 proot-distro install alpine
 proot-distro login alpine -- apk update
 proot-distro login alpine -- apk upgrade
@@ -37,7 +37,7 @@ echo -e 'pulseaudio --start --exit-idle-time=-1\npacmd load-module module-native
 chmod u+x $PATH/audio
 echo -e 'pulseaudio -k\nsed -i "s/high/muted/g" `grep -lr "audiotoggle" .config/xfce4/panel`' > $PATH/audiostop
 chmod u+x $PATH/audiostop
-echo -e 'audio=$(pgrep pulseaudio | wc -l)\nif [ $audio = 0 ]\nthen\n audio\nelse\n audiostop\nfi' > $PATH/audiotoggle
+echo -e 'if [ $(pgrep pulseaudio -c) = 0 ]\nthen\n audio\nelse\n audiostop\nfi' > $PATH/audiotoggle
 chmod u+x $PATH/audiotoggle
 
 # motd
