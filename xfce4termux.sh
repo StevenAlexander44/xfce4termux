@@ -28,7 +28,8 @@ chmod u+x $PATH/novnctoggle
 proot-distro install alpine
 proot-distro login alpine -- apk update
 proot-distro login alpine -- apk upgrade
-proot-distro login alpine -- apk add chromium gtk+3.0
+proot-distro login alpine -- apk add chromium gtk+3.0 tzdata
+proot-distro login alpine -- cp /usr/share/zoneinfo/America/New_York /etc/localtime
 echo -e 'proot-distro login alpine -- sh -c "export DISPLAY=:0 && export PULSE_SERVER=127.0.0.1 && chromium-browser --no-sandbox"' > $PATH/chromium
 chmod u+x $PATH/chromium
 
