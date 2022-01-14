@@ -1,9 +1,13 @@
 # xfce4termux
 XFCE4 gui running inside Termux
 
+## Installation command
+Download [Termux](https://f-droid.org/packages/com.termux) and paste this script
 ```
 pkg up && curl -sL bit.ly/xfce4termux | bash
 ```
+
+Then run ```desktop``` to start the xfce environment
 
 ## Chromium problems
 
