@@ -48,3 +48,6 @@ echo -e 'Desktop Commands:\n * desktop - xfce4 vnc session\n * novnc - access vn
 git clone https://github.com/StevenAlexander44/xfce4termux
 mv xfce4termux/config ~/.config
 rm -rf xfce4termux
+echo;echo;echo Download is Comlete
+echo Recommended install:
+echo; echo pkg i tree neofetch cpufetch openssh rsync mpv-x
