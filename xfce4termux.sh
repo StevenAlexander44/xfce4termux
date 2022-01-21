@@ -53,4 +53,4 @@ echo;echo
 echo Download is Comlete
 echo Recommended install:
 echo
-echo pkg i tree neofetch cpufetch openssh rsync mpv-x
+echo pkg i tree neofetch cpufetch openssh rsync mpv-x htop
