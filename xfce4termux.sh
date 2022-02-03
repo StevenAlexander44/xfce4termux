@@ -18,25 +18,27 @@ proot-distro login alpine -- apk add chromium gtk+3.0 tzdata
 proot-distro login alpine -- cp /usr/share/zoneinfo/America/New_York /etc/localtime
 
 # config
+mkdir ~/.config
 git clone https://github.com/StevenAlexander44/xfce4termux
 (cd ~/xfce4termux/config && tar c .) | (cd ~/.config && tar xf -)
-rm -rf xfce4termux
+cd; rm -rf xfce4termux
 
 # aliases
-echo -e 'replacePanel() { sed -i "s/$1/g" `grep -lr "$2toggle" .config/xfce4/panel`; }' >> .bashrc
-echo -e 'desktop() { rm -rf $TMPDIR/.X*; vncserver :0 -listen tcp -geometry 1280x720 }' >> .bashrc
-echo -e 'desktopstop() { vncserver -kill :0 }' >> .bashrc
-echo -e 'desktoptoggle() { if [ $(Xvnc -c) = 0 ]; then desktop; else desktopstop; fi }' >> .bashrc
-echo -e 'novnc() { replacePanel busy/available novnc; $PREFIX/novnc/utils/novnc_proxy }' >> .bashrc
-echo -e 'novncstop() { pkill -f novnc_proxy; replacePanel available/busy novnc }' >> .bashrc
-echo -e 'novnctoggle() { if [ $(pgrep novnc_proxy -fc) = 0 ]; then novnc; else novncstop; fi }' >> .bashrc
-echo -e 'chromium() { proot-distro login alpine -- sh -c "export DISPLAY=:0 && export PULSE_SERVER=127.0.0.1 && chromium-browser --no-sandbox" }' >> .bashrc
-echo -e 'audio() { pulseaudio --start --exit-idle-time=-1; pacmd load-module module-native-protocol-tcp auth-ip-acl="127.0.0.1;10.0.0.0/8;192.168.0.0/16" auth-anonymous=1; replacePanel muted/high audio }' >> .bashrc
-echo -e 'audiostop() { pulseaudio -k; replacePanel high/muted audio }' >> .bashrc
-echo -e 'audiotoggle() { if [ $(pgrep pulseaudio -c) = 0 ]; then audio; else audiostop; fi }' >> .bashrc
+echo -e 'replacePanel() { sed -i "s/$1/g" `grep -lr "$2" .config/xfce4/panel`; }' >> .bashrc
+echo -e 'desktop() { rm -rf $TMPDIR/.X*; vncserver :0 -listen tcp -geometry 1280x720; }' >> .bashrc
+echo -e 'desktopstop() { vncserver -kill :0; }' >> .bashrc
+echo -e 'desktoptoggle() { if [ $(Xvnc -c) = 0 ]; then desktop; else desktopstop; fi; }' >> .bashrc
+echo -e 'novnc() { replacePanel busy/available novnctoggle; $PREFIX/opt/novnc/utils/novnc_proxy; }' >> .bashrc
+echo -e 'novncstop() { pkill -f novnc_proxy; replacePanel available/busy novnctoggle; }' >> .bashrc
+echo -e 'novnctoggle() { if [ $(pgrep novnc_proxy -fc) = 0 ]; then novnc; else novncstop; fi; }' >> .bashrc
+echo -e 'chromium() { proot-distro login alpine -- sh -c "export DISPLAY=:0 && export PULSE_SERVER=127.0.0.1 && chromium-browser --no-sandbox"; }' >> .bashrc
+echo -e 'audio() { pulseaudio --start --exit-idle-time=-1; pacmd load-module module-native-protocol-tcp auth-ip-acl="127.0.0.1;10.0.0.0/8;192.168.0.0/16" auth-anonymous=1; replacePanel muted/high audiotoggle; }' >> .bashrc
+echo -e 'audiostop() { pulseaudio -k; replacePanel high/muted audiotoggle; }' >> .bashrc
+echo -e 'audiotoggle() { if [ $(pgrep pulseaudio -c) = 0 ]; then audio; else audiostop; fi; }' >> .bashrc
+echo "ip a show dev wlp9s0 | awk '\$1 == \"inet\" {gsub(/\/.*$/, \"\", \$2); print \$2}';echo" >> .bashrc
 
 # motd
-echo -e 'Desktop Shortcuts:\n * desktop - xfce4 vnc session\n * novnc - access vnc in a browser\n * audio - local audio for alpine\n * chromium - chromium in alpine\n' >> $PREFIX/etc/motd
+echo -e 'Desktop Shortcuts:\n * desktop - xfce4 vnc session\n * novnc - access vnc in a browser\n * audio - local audio for linux\n * chromium - chromium in alpine\n' >> $PREFIX/etc/motd
 
 echo Download is complete. Exit and restart termux to complete installation.
 echo Recommended packages: pkg i mpv-x tree htop openssh rsync mpv-x neofetch cpufetch iproute2 man aria2
