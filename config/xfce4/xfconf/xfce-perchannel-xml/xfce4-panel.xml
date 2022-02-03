@@ -21,7 +21,6 @@
         <value type="int" value="4"/>
         <value type="int" value="6"/>
         <value type="int" value="5"/>
-        <value type="int" value="1"/>
         <value type="int" value="12"/>
         <value type="int" value="7"/>
       </property>
@@ -72,6 +71,5 @@
       </property>
     </property>
     <property name="plugin-8" type="string" value="whiskermenu"/>
-    <property name="plugin-1" type="string" value="xfce4-clipman-plugin"/>
   </property>
 </channel>
